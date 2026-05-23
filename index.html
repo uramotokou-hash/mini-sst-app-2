@@ -313,6 +313,12 @@ p.app-subtitle {
   overflow: hidden;
 }
 
+.illust-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* 場面タイトル */
 .scene-title {
   font-size: 1.35rem;
@@ -1773,6 +1779,7 @@ const scenes = [
       "あなたなら、どんな言葉を返す？",
       "もし使っている途中だったら、どうする？"
     ],
+    img: "images/scene02.png",
     svg: svgLend
   },
   {
@@ -2120,7 +2127,13 @@ function renderCard(idx) {
   const s = scenes[idx];
 
   document.getElementById("cardCategory").textContent = s.category;
-  document.getElementById("cardIllust").innerHTML = s.svg;
+
+  const illustEl = document.getElementById("cardIllust");
+  if (s.img) {
+    illustEl.innerHTML = `<img src="${s.img}" alt="${s.title}">`;
+  } else {
+    illustEl.innerHTML = s.svg;
+  }
   document.getElementById("cardTitle").textContent = s.title;
   document.getElementById("cardDesc").textContent = s.desc;
   document.getElementById("cardBalloon").textContent = s.firstWord;
