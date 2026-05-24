@@ -276,7 +276,7 @@ p.app-subtitle {
 
 /* カードラッパ */
 .card-container {
-  max-width: 520px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -537,6 +537,79 @@ p.app-subtitle {
   .scene-title { font-size: 1.15rem; }
   .balloon { font-size: 1.1rem; }
 }
+
+/* ===== PC・電子黒板用 横置きレイアウト ===== */
+@media (min-width: 769px) {
+  /* カード全体を横並びに */
+  .card-layout {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  /* 左カラム：挿絵 */
+  .card-image-col {
+    flex: 0 0 46%;
+  }
+
+  .card-image-col .illust-wrap {
+    margin: 0;
+    border-radius: 0;
+    min-height: 440px;
+    height: 100%;
+  }
+
+  .card-image-col .illust-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* SVGフォールバック用 */
+  .card-image-col .illust-wrap svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 右カラム：テキスト情報 */
+  .card-content-col {
+    flex: 1;
+    padding: 20px 28px 16px;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow-y: auto;
+  }
+
+  /* 右カラム内の各要素の余白を上書き */
+  .card-content-col .category-badge {
+    margin: 0 0 12px;
+  }
+
+  .card-content-col .scene-title {
+    margin: 0 0 8px;
+  }
+
+  .card-content-col .scene-desc {
+    margin: 0 0 14px;
+  }
+
+  .card-content-col .balloon-wrap {
+    margin: 0 0 18px;
+  }
+
+  .card-content-col .questions {
+    margin: 0;
+  }
+}
+
+/* スマホは縦並びを維持 */
+@media (max-width: 768px) {
+  .card-container {
+    max-width: 520px;
+  }
+}
 </style>
 </head>
 <body>
@@ -579,17 +652,25 @@ p.app-subtitle {
 <div class="card-container hidden" id="cardContainer" style="display: none;">
   <div class="card" id="mainCard">
     <button class="btn-home-corner" id="btnHomeCorner" type="button" aria-label="ホームに戻る" title="ホームに戻る">🏠</button>
-    <span class="category-badge" id="cardCategory"></span>
-    <div class="illust-wrap" id="cardIllust"></div>
-    <div class="scene-title" id="cardTitle"></div>
-    <div class="scene-desc" id="cardDesc"></div>
-    <div class="balloon-wrap">
-      <div class="balloon-label">👤 はじめの一言</div>
-      <div class="balloon" id="cardBalloon"></div>
-    </div>
-    <div class="questions">
-      <div class="questions-title">🤔 考えてみよう</div>
-      <ul id="cardQuestions"></ul>
+    <div class="card-layout">
+      <!-- 左カラム：挿絵 -->
+      <div class="card-image-col">
+        <div class="illust-wrap" id="cardIllust"></div>
+      </div>
+      <!-- 右カラム：テキスト情報 -->
+      <div class="card-content-col">
+        <span class="category-badge" id="cardCategory"></span>
+        <div class="scene-title" id="cardTitle"></div>
+        <div class="scene-desc" id="cardDesc"></div>
+        <div class="balloon-wrap">
+          <div class="balloon-label">👤 はじめの一言</div>
+          <div class="balloon" id="cardBalloon"></div>
+        </div>
+        <div class="questions">
+          <div class="questions-title">🤔 考えてみよう</div>
+          <ul id="cardQuestions"></ul>
+        </div>
+      </div>
     </div>
     <div class="btn-area">
       <button class="btn-prev" id="btnPrev" onclick="move(-1)" disabled>◀ もどる</button>
